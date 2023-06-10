@@ -1,14 +1,9 @@
 import {FieldValues, useForm} from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import axios from 'axios';
 import Toast from "@/ui/Toast";
-import {UserContext} from "@/contexts/UserContext";
-import {useContext} from "react";
 import {UserRegister} from "@/interfaces/interfaces";
-import Cookies from "js-cookie";
 import {createUser} from "@/services/UserServices";
-
 
 
 const schema = yup.object().shape({
@@ -25,7 +20,6 @@ const schema = yup.object().shape({
 }).required();
 
 export default function SignUp () {
-    const { setUser } = useContext(UserContext);
     const { register,
         handleSubmit,
         formState: { errors } } = useForm({

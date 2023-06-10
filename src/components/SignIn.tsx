@@ -1,8 +1,9 @@
 import {FieldValues, useForm} from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {loginUser} from "@/services/UserServices";
-import {UserLogin, UserRegister} from "@/interfaces/interfaces";
+import {UserLogin} from "@/interfaces/interfaces";
+
 const schema = yup.object().shape({
     email: yup.string().email().required('Please provide a valid email'),
     password: yup.string()
