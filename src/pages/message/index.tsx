@@ -1,10 +1,13 @@
 import React from 'react';
+import Protected from "@/components/Protected";
 
 const MessagePage = () => {
   return (
-    <div>
-      MessagePage
-    </div>
+      <Protected>
+          <div>
+              Message Page
+          </div>
+      </Protected>
   );
 };
 

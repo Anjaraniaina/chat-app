@@ -1,10 +1,13 @@
 import React from 'react';
 import {SignUp} from "@/components";
+import Protected from "@/components/Protected";
 
 const SignUpPage = () => {
   return (
     <div className={"container-fluid "}>
-      <SignUp />
+        <Protected>
+            <SignUp />
+        </Protected>
     </div>
   );
 };

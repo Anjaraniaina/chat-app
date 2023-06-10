@@ -1,8 +1,10 @@
-import { useRouter } from 'next/router';
+import Protected from "@/components/Protected";
+import React from "react";
 
 
 export default function Home() {
-  return <div>
-    ...Loading
-  </div>;
+  return
+    <Protected>
+      ...Loading
+    </Protected>
 }

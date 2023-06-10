@@ -1,10 +1,13 @@
 import React from 'react';
+import Protected from "@/components/Protected";
 
 const ChannelPage = () => {
   return (
-    <div>
-        Channel Page
-    </div>
+    <Protected>
+        <div>
+            Channel Page
+        </div>
+    </Protected>
   );
 };
 
