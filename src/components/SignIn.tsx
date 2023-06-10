@@ -1,9 +1,8 @@
 import {FieldValues, useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import axios from 'axios';
-import {useContext} from "react";
-import {UserContext} from "@/contexts/UserContext";
+import {loginUser} from "@/services/UserServices";
+import {UserLogin, UserRegister} from "@/interfaces/interfaces";
 const schema = yup.object().shape({
     email: yup.string().email().required('Please provide a valid email'),
     password: yup.string()
@@ -15,18 +14,13 @@ const SignIn = () => {
         resolver: yupResolver(schema),
     });
 
-    const { setUser } = useContext(UserContext);
-
     const onSubmit = async (data: FieldValues) => {
-
+        const user: UserLogin = {
+            email: data.email,
+            password: data.password
+        }
         try {
-            await axios.post(`${process.env.API_URL}/users/login`, data).then(
-                (response) => {
-                    const { user } = response.data;
-                    setUser(user);
-                    localStorage.setItem('jwt_token', user.token);
-                }
-            );
+            await loginUser(user);
         } catch (e) {
             console.error(e);
         }

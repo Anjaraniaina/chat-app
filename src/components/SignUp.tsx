@@ -6,6 +6,8 @@ import Toast from "@/ui/Toast";
 import {UserContext} from "@/contexts/UserContext";
 import {useContext} from "react";
 import {UserRegister} from "@/interfaces/interfaces";
+import Cookies from "js-cookie";
+import {createUser} from "@/services/UserServices";
 
 
 
@@ -37,15 +39,9 @@ export default function SignUp () {
             email: data.email,
             password: data.password
         }
-        console.log(user);
 
             try {
-                await axios.post("http://localhost:8080/users", user).then(
-                    (response) => {
-                        const { user } = response.data;
-                        setUser(user);
-                    }
-                );
+                await createUser(user);
             } catch (e) {
                 console.error(e);
             }
