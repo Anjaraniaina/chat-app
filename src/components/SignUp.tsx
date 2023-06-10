@@ -2,22 +2,12 @@ import {FieldValues, useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from 'axios';
-import {useState} from "react";
 import Toast from "@/ui/Toast";
+import {UserContext} from "@/contexts/UserContext";
+import {useContext} from "react";
+import {UserRegister} from "@/interfaces/interfaces";
 
-interface User {
-    name: string,
-    bio: string,
-    email: string,
-    token: string
-}
 
-interface UserRegister {
-    name: string,
-    bio: string,
-    email: string,
-    password: string,
-}
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -33,8 +23,7 @@ const schema = yup.object().shape({
 }).required();
 
 export default function SignUp () {
-    //const [password, setPassword] = useState("");
-    //const [confirmPassword, setConfirmPassword] = useState("");
+    const { setUser } = useContext(UserContext);
     const { register,
         handleSubmit,
         formState: { errors } } = useForm({
@@ -42,7 +31,6 @@ export default function SignUp () {
     });
 
     const onSubmit = async (data: FieldValues) => {
-        // async request which may result error
         const user: UserRegister = {
             name: data.name,
             bio: data.bio,
@@ -55,9 +43,7 @@ export default function SignUp () {
                 await axios.post("http://localhost:8080/users", user).then(
                     (response) => {
                         const { user } = response.data;
-                        localStorage.setItem('jwt_token', user.token);
-                        console.log(user);
-                        console.log("hey");
+                        setUser(user);
                     }
                 );
             } catch (e) {
